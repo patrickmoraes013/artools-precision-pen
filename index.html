@@ -2022,6 +2022,675 @@
 
     </section>
 
+    <!-- ══════════════════════════════════════════════════════════
+         FOURTH FOLD — VIDEO BACKGROUND + GLOW BOX
+    ══════════════════════════════════════════════════════════ -->
+    <style>
+        /* ════════════════════════════════════════
+           FOURTH FOLD — CINEMATIC GLOW
+        ════════════════════════════════════════ */
+
+        .cinema-section {
+            position: relative;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+        }
+
+        /* ── Video background ── */
+        .cinema-video-bg {
+            position: absolute;
+            inset: 0;
+            z-index: 0;
+        }
+
+        .cinema-video-bg video {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            filter: saturate(0.6) contrast(1.1) brightness(0.55);
+            transform: scale(1.04);
+            transition: transform 0.6s ease;
+        }
+
+        /* Multi-layer overlays for cinematic depth */
+        .cinema-overlay-1 {
+            position: absolute;
+            inset: 0;
+            background: radial-gradient(ellipse at center, rgba(0,0,0,0.2) 0%, rgba(0,0,0,0.75) 100%);
+            z-index: 1;
+        }
+
+        .cinema-overlay-2 {
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(
+                180deg,
+                rgba(0,0,0,0.55) 0%,
+                rgba(0,0,0,0.1) 35%,
+                rgba(0,0,0,0.1) 65%,
+                rgba(0,0,0,0.6) 100%
+            );
+            z-index: 2;
+        }
+
+        .cinema-noise {
+            position: absolute;
+            inset: 0;
+            z-index: 3;
+            opacity: 0.025;
+            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
+            pointer-events: none;
+        }
+
+        /* ── Ambient glow orb behind main card ── */
+        .cinema-orb {
+            position: absolute;
+            width: 700px;
+            height: 700px;
+            left: 50%;
+            top: 50%;
+            transform: translate(-50%, -50%);
+            background: radial-gradient(circle, rgba(255,255,255,0.055) 0%, transparent 65%);
+            filter: blur(40px);
+            border-radius: 50%;
+            pointer-events: none;
+            z-index: 4;
+            animation: cinema-orb-breathe 6s ease-in-out infinite;
+        }
+
+        @keyframes cinema-orb-breathe {
+            0%, 100% { opacity: 0.7; transform: translate(-50%, -50%) scale(1); }
+            50%       { opacity: 1;   transform: translate(-50%, -50%) scale(1.1); }
+        }
+
+        /* ── Section tag (top-right) ── */
+        .cinema-section-tag {
+            position: absolute;
+            top: 2.25rem;
+            right: 2.5rem;
+            z-index: 20;
+            font-family: var(--font-mono);
+            font-size: 0.5625rem;
+            letter-spacing: 0.25em;
+            text-transform: uppercase;
+            color: rgba(255,255,255,0.2);
+            writing-mode: vertical-rl;
+        }
+
+        /* ── Main glass glow card ── */
+        .cinema-card-wrap {
+            position: relative;
+            z-index: 10;
+            width: min(680px, 90vw);
+            opacity: 0;
+            transform: translateY(40px) scale(0.97);
+            will-change: transform, opacity;
+        }
+
+        /* Gradient border (extracted from gemini template) */
+        .cinema-card-wrap::before {
+            content: "";
+            position: absolute;
+            inset: -1px;
+            border-radius: 25px;
+            background: linear-gradient(
+                135deg,
+                rgba(255,255,255,0.18) 0%,
+                rgba(255,255,255,0.04) 40%,
+                rgba(255,255,255,0.12) 100%
+            );
+            -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+            mask:         linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+            -webkit-mask-composite: xor;
+            mask-composite: exclude;
+            padding: 1px;
+            pointer-events: none;
+            z-index: -1;
+            animation: cinema-border-rotate 8s linear infinite;
+            background-size: 200% 200%;
+        }
+
+        @keyframes cinema-border-rotate {
+            0%   { background-position: 0% 0%; }
+            50%  { background-position: 100% 100%; }
+            100% { background-position: 0% 0%; }
+        }
+
+        /* The card itself */
+        .cinema-card {
+            background: rgba(12, 12, 11, 0.72);
+            backdrop-filter: blur(36px) saturate(180%);
+            -webkit-backdrop-filter: blur(36px) saturate(180%);
+            border-radius: 24px;
+            padding: clamp(2.5rem, 5vw, 4rem);
+            position: relative;
+            overflow: hidden;
+        }
+
+        /* Flashlight effect (from gemini template) */
+        .cinema-card::before {
+            content: "";
+            position: absolute;
+            inset: 0;
+            background: radial-gradient(
+                700px circle at var(--cx, 50%) var(--cy, 50%),
+                rgba(255,255,255,0.055),
+                transparent 40%
+            );
+            opacity: 0;
+            transition: opacity 0.5s ease;
+            pointer-events: none;
+            z-index: 0;
+            border-radius: inherit;
+        }
+
+        .cinema-card:hover::before { opacity: 1; }
+
+        /* Top shimmer beam sweeping across card */
+        .cinema-card-shimmer {
+            position: absolute;
+            top: 0;
+            left: -60%;
+            width: 40%;
+            height: 100%;
+            background: linear-gradient(
+                90deg,
+                transparent,
+                rgba(255,255,255,0.045),
+                transparent
+            );
+            transform: skewX(-12deg);
+            animation: cinema-shimmer-sweep 8s ease-in-out infinite;
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        @keyframes cinema-shimmer-sweep {
+            0%,  60%, 100% { transform: skewX(-12deg) translateX(-100%); opacity: 0; }
+            25% { opacity: 1; }
+            45% { transform: skewX(-12deg) translateX(350%); opacity: 0; }
+        }
+
+        /* Card content z-index */
+        .cinema-card > * { position: relative; z-index: 2; }
+
+        /* ── Card Eyebrow ── */
+        .cinema-eyebrow {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            margin-bottom: 2rem;
+            opacity: 0;
+            transform: translateY(14px);
+        }
+
+        .cinema-eyebrow-dot {
+            width: 6px; height: 6px;
+            border-radius: 50%;
+            background: rgba(255,255,255,0.5);
+            flex-shrink: 0;
+            animation: cinema-dot-blink 2s ease-in-out infinite;
+        }
+
+        @keyframes cinema-dot-blink {
+            0%, 100% { opacity: 0.5; }
+            50% { opacity: 1; box-shadow: 0 0 8px 2px rgba(255,255,255,0.4); }
+        }
+
+        .cinema-eyebrow-text {
+            font-family: var(--font-mono);
+            font-size: 0.5625rem;
+            letter-spacing: 0.3em;
+            text-transform: uppercase;
+            color: rgba(255,255,255,0.35);
+        }
+
+        /* ── Headline ── */
+        .cinema-headline {
+            font-size: clamp(2.25rem, 4.5vw, 4.25rem);
+            font-weight: 700;
+            line-height: 0.92;
+            letter-spacing: -0.04em;
+            color: #F5F5F4;
+            margin-bottom: 2rem;
+            overflow: hidden;
+        }
+
+        .cinema-hl-line {
+            display: block;
+            transform: translateY(110%);
+            opacity: 0;
+            will-change: transform, opacity;
+        }
+
+        .cinema-hl-line.dim {
+            -webkit-text-fill-color: transparent;
+            -webkit-text-stroke: 1.5px rgba(255,255,255,0.22);
+            color: transparent;
+        }
+
+        /* ── Divider ── */
+        .cinema-rule {
+            width: 100%;
+            height: 1px;
+            background: linear-gradient(to right, rgba(255,255,255,0.12), rgba(255,255,255,0.03));
+            margin-bottom: 2rem;
+            transform-origin: left;
+            transform: scaleX(0);
+        }
+
+        /* ── Spec list ── */
+        .cinema-specs {
+            display: flex;
+            flex-direction: column;
+            gap: 0;
+            margin-bottom: 2.5rem;
+        }
+
+        .cinema-spec {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            padding: 0.875rem 0;
+            border-bottom: 1px solid rgba(255,255,255,0.05);
+            opacity: 0;
+            transform: translateX(-16px);
+            transition: background 0.3s ease;
+            border-radius: 8px;
+        }
+
+        .cinema-spec:first-child { border-top: 1px solid rgba(255,255,255,0.05); }
+
+        .cinema-spec:hover {
+            background: rgba(255,255,255,0.025);
+            padding-left: 0.5rem;
+            padding-right: 0.5rem;
+            margin: 0 -0.5rem;
+        }
+
+        .cinema-spec-dot {
+            width: 7px; height: 7px;
+            border-radius: 50%;
+            border: 1px solid rgba(255,255,255,0.25);
+            flex-shrink: 0;
+            position: relative;
+        }
+
+        .cinema-spec-dot::after {
+            content: '';
+            position: absolute;
+            inset: 2px;
+            border-radius: 50%;
+            background: rgba(255,255,255,0.6);
+            animation: spec-dot-glow 3s ease-in-out infinite;
+        }
+
+        @keyframes spec-dot-glow {
+            0%, 100% { opacity: 0.5; box-shadow: none; }
+            50% { opacity: 1; box-shadow: 0 0 6px 2px rgba(255,255,255,0.35); }
+        }
+
+        .cinema-spec-name {
+            font-size: 0.875rem;
+            font-weight: 600;
+            color: rgba(255,255,255,0.8);
+            letter-spacing: -0.01em;
+        }
+
+        .cinema-spec-detail {
+            font-family: var(--font-mono);
+            font-size: 0.5625rem;
+            letter-spacing: 0.12em;
+            text-transform: uppercase;
+            color: rgba(255,255,255,0.25);
+            margin-left: auto;
+            white-space: nowrap;
+        }
+
+        /* ── Beam CTA Button (adapted from gemini template) ── */
+        .cinema-cta-row {
+            display: flex;
+            align-items: center;
+            gap: 1.5rem;
+            flex-wrap: wrap;
+            opacity: 0;
+            transform: translateY(16px);
+        }
+
+        .beam-btn-wrap {
+            position: relative;
+            border-radius: 100px;
+            padding: 1px;
+            display: inline-flex;
+            overflow: hidden;
+        }
+
+        /* Spinning conic gradient border — the "beam" */
+        .beam-btn-wrap::before {
+            content: '';
+            position: absolute;
+            inset: -2px;
+            background: conic-gradient(from 0deg, transparent 0deg 330deg, rgba(255,255,255,0.9) 360deg);
+            border-radius: 100px;
+            animation: beam-spin 2.5s linear infinite;
+        }
+
+        @keyframes beam-spin {
+            to { transform: rotate(360deg); }
+        }
+
+        /* Outer glow halo */
+        .beam-btn-wrap::after {
+            content: '';
+            position: absolute;
+            inset: -4px;
+            background: conic-gradient(from 0deg, transparent 0deg 330deg, rgba(255,255,255,0.15) 360deg);
+            border-radius: 100px;
+            animation: beam-spin 2.5s linear infinite;
+            filter: blur(8px);
+        }
+
+        .beam-btn {
+            position: relative;
+            z-index: 2;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.875rem;
+            padding: 0.9375rem 2.25rem;
+            background: rgba(8, 8, 8, 0.95);
+            border-radius: 100px;
+            border: none;
+            font-family: var(--font-primary);
+            font-size: 0.75rem;
+            font-weight: 700;
+            letter-spacing: 0.14em;
+            text-transform: uppercase;
+            color: rgba(255,255,255,0.9);
+            text-decoration: none;
+            cursor: none;
+            overflow: hidden;
+            white-space: nowrap;
+        }
+
+        .beam-btn-shimmer-inner {
+            position: absolute;
+            top: 0; left: -60%;
+            width: 40%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.18), transparent);
+            transform: skewX(-15deg);
+            animation: beam-shimmer-inner 2.5s ease-in-out infinite;
+        }
+
+        @keyframes beam-shimmer-inner {
+            0%, 100% { transform: skewX(-15deg) translateX(-60%); }
+            60% { transform: skewX(-15deg) translateX(350%); }
+        }
+
+        .beam-btn svg {
+            width: 14px; height: 14px;
+            transition: transform 0.3s var(--ease-out);
+            position: relative;
+            z-index: 1;
+        }
+
+        .beam-btn:hover svg { transform: translateX(4px); }
+        .beam-btn span { position: relative; z-index: 1; }
+
+        .cinema-secondary-link {
+            font-family: var(--font-primary);
+            font-size: 0.75rem;
+            font-weight: 500;
+            letter-spacing: 0.06em;
+            color: rgba(255,255,255,0.35);
+            text-decoration: none;
+            cursor: none;
+            transition: color 0.3s ease;
+        }
+
+        .cinema-secondary-link:hover { color: rgba(255,255,255,0.65); }
+
+        /* ── Two bottom stat cards ── */
+        .cinema-stat-cards {
+            position: absolute;
+            bottom: 3rem;
+            left: 0; right: 0;
+            z-index: 10;
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            padding: 0 2rem;
+            opacity: 0;
+            transform: translateY(20px);
+        }
+
+        .cinema-stat-card {
+            background: rgba(12, 12, 11, 0.6);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid rgba(255,255,255,0.07);
+            border-radius: 16px;
+            padding: 1.125rem 1.5rem;
+            display: flex;
+            align-items: center;
+            gap: 0.875rem;
+            position: relative;
+            overflow: hidden;
+            transition: background 0.4s ease, transform 0.4s var(--ease-out);
+            cursor: default;
+        }
+
+        /* flashlight on stat cards */
+        .cinema-stat-card::before {
+            content: "";
+            position: absolute;
+            inset: 0;
+            background: radial-gradient(
+                400px circle at var(--scx, 50%) var(--scy, 50%),
+                rgba(255,255,255,0.07),
+                transparent 40%
+            );
+            opacity: 0;
+            transition: opacity 0.4s;
+            pointer-events: none;
+        }
+
+        .cinema-stat-card:hover::before { opacity: 1; }
+        .cinema-stat-card:hover { transform: translateY(-2px); background: rgba(18,18,16,0.75); }
+
+        .cinema-stat-card-icon {
+            width: 36px; height: 36px;
+            border-radius: 10px;
+            background: rgba(255,255,255,0.05);
+            border: 1px solid rgba(255,255,255,0.06);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+        }
+
+        .cinema-stat-card-icon svg {
+            width: 16px; height: 16px;
+            stroke: rgba(255,255,255,0.45);
+        }
+
+        .cinema-stat-card-body { position: relative; z-index: 1; }
+
+        .cinema-stat-card-value {
+            font-size: 1.0625rem;
+            font-weight: 700;
+            color: rgba(255,255,255,0.8);
+            letter-spacing: -0.02em;
+            line-height: 1;
+            margin-bottom: 0.2rem;
+        }
+
+        .cinema-stat-card-label {
+            font-family: var(--font-mono);
+            font-size: 0.5rem;
+            letter-spacing: 0.18em;
+            text-transform: uppercase;
+            color: rgba(255,255,255,0.2);
+        }
+
+        @media (max-width: 640px) {
+            .cinema-stat-cards {
+                bottom: 1.5rem;
+                gap: 0.625rem;
+            }
+            .cinema-stat-card {
+                padding: 0.875rem 1rem;
+            }
+        }
+    </style>
+
+    <section id="comprar" class="cinema-section">
+
+        <!-- Video Background -->
+        <div class="cinema-video-bg">
+            <video autoplay muted loop playsinline preload="auto" id="cinema-video">
+                <source src="assets/raw_files/Pen_writing_in_notebook_delpmaspu_.mp4" type="video/mp4" />
+            </video>
+        </div>
+
+        <!-- Overlays -->
+        <div class="cinema-overlay-1"></div>
+        <div class="cinema-overlay-2"></div>
+        <div class="cinema-noise"></div>
+
+        <!-- Ambient glow orb -->
+        <div class="cinema-orb" id="cinema-orb"></div>
+
+        <!-- Section tag -->
+        <span class="cinema-section-tag">04 / Adquirir</span>
+
+        <!-- ── Main Glow Card ── -->
+        <div class="cinema-card-wrap" id="cinema-card-wrap">
+            <div class="cinema-card"
+                 id="cinema-card"
+                 onmousemove="const r=this.getBoundingClientRect();this.style.setProperty('--cx',(event.clientX-r.left)+'px');this.style.setProperty('--cy',(event.clientY-r.top)+'px')">
+
+                <div class="cinema-card-shimmer"></div>
+
+                <!-- Eyebrow -->
+                <div class="cinema-eyebrow" id="cinema-eyebrow">
+                    <span class="cinema-eyebrow-dot"></span>
+                    <span class="cinema-eyebrow-text">Artools Pigmentum — Precision Series 2025</span>
+                </div>
+
+                <!-- Headline -->
+                <h2 class="cinema-headline" aria-label="Onde precisão encontra arte.">
+                    <span class="cinema-hl-line" id="chl-1">Onde precisão</span>
+                    <span class="cinema-hl-line dim" id="chl-2">encontra</span>
+                    <span class="cinema-hl-line" id="chl-3">a arte.</span>
+                </h2>
+
+                <!-- Divider rule -->
+                <div class="cinema-rule" id="cinema-rule"></div>
+
+                <!-- Spec list -->
+                <div class="cinema-specs">
+                    <div class="cinema-spec" id="cspec-1">
+                        <span class="cinema-spec-dot"></span>
+                        <span class="cinema-spec-name">Tinta Nanométrica Permanente 80nm</span>
+                        <span class="cinema-spec-detail">Archival 200yr+</span>
+                    </div>
+                    <div class="cinema-spec" id="cspec-2">
+                        <span class="cinema-spec-dot"></span>
+                        <span class="cinema-spec-name">Ponta de Tungstênio Carbonetado</span>
+                        <span class="cinema-spec-detail">3.000m · WC-Co</span>
+                    </div>
+                    <div class="cinema-spec" id="cspec-3">
+                        <span class="cinema-spec-dot"></span>
+                        <span class="cinema-spec-name">Corpo em Alumínio Aeroespacial 7075-T6</span>
+                        <span class="cinema-spec-detail">572 MPa · 2.8 g/cm³</span>
+                    </div>
+                    <div class="cinema-spec" id="cspec-4">
+                        <span class="cinema-spec-dot"></span>
+                        <span class="cinema-spec-name">Válvula de Fluxo Suíça Microengenheirada</span>
+                        <span class="cinema-spec-detail">±0.003mm · Swiss Mfg.</span>
+                    </div>
+                </div>
+
+                <!-- CTA Row -->
+                <div class="cinema-cta-row" id="cinema-cta-row">
+                    <div class="beam-btn-wrap">
+                        <a href="#" class="beam-btn" aria-label="Adquirir a Artools Precision Pen">
+                            <div class="beam-btn-shimmer-inner"></div>
+                            <span>Adquirir a Precision Pen</span>
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M5 12h14M12 5l7 7-7 7"/>
+                            </svg>
+                        </a>
+                    </div>
+                    <a href="#design" class="cinema-secondary-link">Ver todos os modelos</a>
+                </div>
+
+            </div>
+        </div>
+
+        <!-- ── Bottom Stat Cards ── -->
+        <div class="cinema-stat-cards" id="cinema-stat-cards">
+
+            <div class="cinema-stat-card"
+                 onmousemove="const r=this.getBoundingClientRect();this.style.setProperty('--scx',(event.clientX-r.left)+'px');this.style.setProperty('--scy',(event.clientY-r.top)+'px')">
+                <div class="cinema-stat-card-icon">
+                    <svg viewBox="0 0 24 24" fill="none" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
+                    </svg>
+                </div>
+                <div class="cinema-stat-card-body">
+                    <div class="cinema-stat-card-value">4.9 / 5</div>
+                    <div class="cinema-stat-card-label">Avaliação média</div>
+                </div>
+            </div>
+
+            <div class="cinema-stat-card"
+                 onmousemove="const r=this.getBoundingClientRect();this.style.setProperty('--scx',(event.clientX-r.left)+'px');this.style.setProperty('--scy',(event.clientY-r.top)+'px')">
+                <div class="cinema-stat-card-icon">
+                    <svg viewBox="0 0 24 24" fill="none" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                        <circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/>
+                    </svg>
+                </div>
+                <div class="cinema-stat-card-body">
+                    <div class="cinema-stat-card-value">48h</div>
+                    <div class="cinema-stat-card-label">Entrega expressa</div>
+                </div>
+            </div>
+
+            <div class="cinema-stat-card"
+                 onmousemove="const r=this.getBoundingClientRect();this.style.setProperty('--scx',(event.clientX-r.left)+'px');this.style.setProperty('--scy',(event.clientY-r.top)+'px')">
+                <div class="cinema-stat-card-icon">
+                    <svg viewBox="0 0 24 24" fill="none" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+                    </svg>
+                </div>
+                <div class="cinema-stat-card-body">
+                    <div class="cinema-stat-card-value">30 dias</div>
+                    <div class="cinema-stat-card-label">Garantia de satisfação</div>
+                </div>
+            </div>
+
+            <div class="cinema-stat-card"
+                 onmousemove="const r=this.getBoundingClientRect();this.style.setProperty('--scx',(event.clientX-r.left)+'px');this.style.setProperty('--scy',(event.clientY-r.top)+'px')">
+                <div class="cinema-stat-card-icon">
+                    <svg viewBox="0 0 24 24" fill="none" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/>
+                    </svg>
+                </div>
+                <div class="cinema-stat-card-body">
+                    <div class="cinema-stat-card-value">10K+</div>
+                    <div class="cinema-stat-card-label">Artistas satisfeitos</div>
+                </div>
+            </div>
+
+        </div>
+
+    </section>
+
     <script>
         (function () {
             gsap.registerPlugin(ScrollTrigger);
@@ -2476,6 +3145,106 @@
                     start: 'bottom 60%',
                     end: 'bottom top',
                     scrub: true,
+                }
+            });
+
+        })();
+    </script>
+
+    <!-- ══════════════════════════════════════
+         FOURTH FOLD — GSAP ANIMATIONS
+    ══════════════════════════════════════ -->
+    <script>
+        (function () {
+            const cinemaSection = document.getElementById('comprar');
+            if (!cinemaSection) return;
+
+            /* ── Main card entrance ── */
+            gsap.to('#cinema-card-wrap', {
+                opacity: 1,
+                y: 0,
+                scale: 1,
+                duration: 1.6,
+                ease: 'power4.out',
+                scrollTrigger: { trigger: cinemaSection, start: 'top 72%' }
+            });
+
+            /* ── Eyebrow ── */
+            gsap.to('#cinema-eyebrow', {
+                opacity: 1,
+                y: 0,
+                duration: 0.9,
+                ease: 'power4.out',
+                scrollTrigger: { trigger: cinemaSection, start: 'top 68%' }
+            });
+
+            /* ── Headline stagger ── */
+            gsap.to(['#chl-1', '#chl-2', '#chl-3'], {
+                opacity: 1,
+                y: 0,
+                duration: 1.2,
+                ease: 'power4.out',
+                stagger: 0.12,
+                scrollTrigger: { trigger: cinemaSection, start: 'top 66%' }
+            });
+
+            /* ── Divider rule draws in ── */
+            gsap.to('#cinema-rule', {
+                scaleX: 1,
+                duration: 1.2,
+                ease: 'power3.out',
+                scrollTrigger: { trigger: cinemaSection, start: 'top 64%' }
+            });
+
+            /* ── Spec lines stagger from left ── */
+            gsap.to(['#cspec-1', '#cspec-2', '#cspec-3', '#cspec-4'], {
+                opacity: 1,
+                x: 0,
+                duration: 0.75,
+                ease: 'power4.out',
+                stagger: 0.1,
+                scrollTrigger: { trigger: '#cinema-card', start: 'top 60%' }
+            });
+
+            /* ── CTA row ── */
+            gsap.to('#cinema-cta-row', {
+                opacity: 1,
+                y: 0,
+                duration: 0.9,
+                ease: 'power4.out',
+                scrollTrigger: { trigger: '#cinema-card', start: 'top 55%' }
+            });
+
+            /* ── Bottom stat cards stagger ── */
+            gsap.to('#cinema-stat-cards', {
+                opacity: 1,
+                y: 0,
+                duration: 1,
+                ease: 'power4.out',
+                scrollTrigger: { trigger: cinemaSection, start: 'top 60%' }
+            });
+
+            /* ── Video slow Ken Burns on scroll ── */
+            gsap.to('#cinema-video', {
+                scale: 1.12,
+                ease: 'none',
+                scrollTrigger: {
+                    trigger: cinemaSection,
+                    start: 'top bottom',
+                    end: 'bottom top',
+                    scrub: 2
+                }
+            });
+
+            /* ── Orb parallax (opposite direction = depth) ── */
+            gsap.to('#cinema-orb', {
+                y: -60,
+                ease: 'none',
+                scrollTrigger: {
+                    trigger: cinemaSection,
+                    start: 'top bottom',
+                    end: 'bottom top',
+                    scrub: 3
                 }
             });
 
