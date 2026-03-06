@@ -642,6 +642,460 @@
         }
 
         /* ══════════════════════════════════════
+           SECOND FOLD — ENGINEERING SECTION
+        ══════════════════════════════════════ */
+        .engineering-section {
+            position: relative;
+            background: #1C1917;
+            color: #F5F5F4;
+            overflow: hidden;
+            min-height: 100vh;
+        }
+
+        .eng-bg-grid {
+            position: absolute;
+            inset: 0;
+            background-size: 56px 56px;
+            background-image:
+                linear-gradient(to right, rgba(255,255,255,0.025) 1px, transparent 1px),
+                linear-gradient(to bottom, rgba(255,255,255,0.025) 1px, transparent 1px);
+            pointer-events: none;
+        }
+
+        .eng-top-rule {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 1px;
+            background: linear-gradient(to right, transparent 0%, rgba(255,255,255,0.12) 30%, rgba(255,255,255,0.12) 70%, transparent 100%);
+            transform-origin: left center;
+            transform: scaleX(0);
+        }
+
+        .eng-section-tag {
+            position: absolute;
+            top: 2rem;
+            right: 2.5rem;
+            font-family: var(--font-mono);
+            font-size: 0.5625rem;
+            letter-spacing: 0.25em;
+            text-transform: uppercase;
+            color: rgba(255,255,255,0.12);
+            writing-mode: vertical-rl;
+            text-orientation: mixed;
+        }
+
+        .eng-container {
+            position: relative;
+            z-index: 2;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            min-height: 100vh;
+            max-width: 1440px;
+            margin: 0 auto;
+        }
+
+        /* ─── Image Column ─── */
+        .eng-image-col {
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 7rem 3rem 7rem 5rem;
+            border-right: 1px solid rgba(255,255,255,0.05);
+        }
+
+        .eng-image-stage {
+            position: relative;
+            width: 100%;
+            max-width: 400px;
+        }
+
+        .eng-image-glow {
+            position: absolute;
+            inset: -20%;
+            background: radial-gradient(ellipse at center, rgba(214,211,209,0.06) 0%, transparent 70%);
+            pointer-events: none;
+        }
+
+        .eng-image-wrapper {
+            position: relative;
+            z-index: 2;
+        }
+
+        .eng-image-wrapper img {
+            width: 100%;
+            height: auto;
+            display: block;
+            border-radius: 16px;
+            filter: contrast(1.08) saturate(0.85);
+            box-shadow:
+                0 60px 120px rgba(0,0,0,0.7),
+                0 20px 40px rgba(0,0,0,0.4),
+                0 0 0 1px rgba(255,255,255,0.04);
+            transform: rotate(-3deg);
+            will-change: transform;
+            transition: transform 0.8s var(--ease-out);
+        }
+
+        .eng-image-wrapper:hover img {
+            transform: rotate(0deg) scale(1.015);
+        }
+
+        .eng-image-reflection {
+            position: absolute;
+            bottom: -18%;
+            left: 5%;
+            right: 5%;
+            height: 60%;
+            background: inherit;
+            filter: blur(20px) brightness(0.15);
+            transform: scaleY(-1) translateY(-10%);
+            border-radius: 50%;
+            opacity: 0.5;
+            pointer-events: none;
+        }
+
+        /* ─── Floating Spec Badges ─── */
+        .spec-pill {
+            position: absolute;
+            background: rgba(255,255,255,0.04);
+            border: 1px solid rgba(255,255,255,0.07);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border-radius: 100px;
+            padding: 0.5rem 1.125rem;
+            display: flex;
+            align-items: center;
+            gap: 0.625rem;
+            font-family: var(--font-mono);
+            font-size: 0.5625rem;
+            letter-spacing: 0.12em;
+            text-transform: uppercase;
+            color: rgba(255,255,255,0.45);
+            white-space: nowrap;
+            opacity: 0;
+            transform: translateY(16px);
+            will-change: transform, opacity;
+        }
+
+        .spec-pill .pill-indicator {
+            width: 5px;
+            height: 5px;
+            border-radius: 50%;
+            background: rgba(214,211,209,0.5);
+            flex-shrink: 0;
+            animation: pill-pulse 3s ease-in-out infinite;
+        }
+
+        @keyframes pill-pulse {
+            0%, 100% { opacity: 0.5; transform: scale(1); }
+            50% { opacity: 1; transform: scale(1.3); }
+        }
+
+        .spec-pill-1 { top: 18%; left: -2%; }
+        .spec-pill-2 { top: 30%; right: -6%; }
+        .spec-pill-3 { bottom: 32%; left: -4%; }
+        .spec-pill-4 { bottom: 18%; right: -3%; }
+
+        .eng-measure {
+            position: absolute;
+            left: 2rem;
+            top: 50%;
+            transform: translateY(-50%);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 0.5rem;
+            opacity: 0;
+        }
+
+        .eng-measure-label {
+            font-family: var(--font-mono);
+            font-size: 0.5rem;
+            letter-spacing: 0.2em;
+            text-transform: uppercase;
+            color: rgba(255,255,255,0.15);
+            writing-mode: vertical-rl;
+        }
+
+        .eng-measure-bar {
+            width: 1px;
+            height: 80px;
+            background: linear-gradient(to bottom, transparent, rgba(255,255,255,0.15), transparent);
+        }
+
+        /* ─── Text Column ─── */
+        .eng-text-col {
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            padding: 7rem 5rem 7rem 4rem;
+        }
+
+        .eng-eyebrow {
+            display: flex;
+            align-items: center;
+            gap: 0.875rem;
+            margin-bottom: 2.25rem;
+            opacity: 0;
+            transform: translateY(18px);
+        }
+
+        .eng-eyebrow-dash {
+            width: 1.75rem;
+            height: 1px;
+            background: rgba(255,255,255,0.25);
+            flex-shrink: 0;
+        }
+
+        .eng-eyebrow-text {
+            font-family: var(--font-mono);
+            font-size: 0.5625rem;
+            letter-spacing: 0.3em;
+            text-transform: uppercase;
+            color: rgba(255,255,255,0.35);
+        }
+
+        .eng-headline {
+            font-size: clamp(3rem, 4.5vw, 5.25rem);
+            font-weight: 700;
+            line-height: 0.88;
+            letter-spacing: -0.04em;
+            margin-bottom: 2.5rem;
+            overflow: hidden;
+        }
+
+        .eng-headline-line {
+            display: block;
+            color: #F5F5F4;
+            transform: translateY(110%);
+            opacity: 0;
+            will-change: transform, opacity;
+        }
+
+        .eng-headline-line.accent {
+            -webkit-text-fill-color: transparent;
+            -webkit-text-stroke: 1.5px rgba(255,255,255,0.25);
+            color: transparent;
+        }
+
+        .eng-intro {
+            font-size: 0.9375rem;
+            line-height: 1.75;
+            color: rgba(255,255,255,0.38);
+            max-width: 400px;
+            margin-bottom: 3rem;
+            font-weight: 300;
+            opacity: 0;
+            transform: translateY(18px);
+        }
+
+        /* ─── Feature List ─── */
+        .eng-features {
+            display: flex;
+            flex-direction: column;
+            border-top: 1px solid rgba(255,255,255,0.05);
+            margin-bottom: 3rem;
+        }
+
+        .eng-feature {
+            display: grid;
+            grid-template-columns: 2rem 1fr auto;
+            gap: 1.25rem;
+            align-items: center;
+            padding: 1.25rem 0;
+            border-bottom: 1px solid rgba(255,255,255,0.05);
+            opacity: 0;
+            transform: translateX(-20px);
+            cursor: default;
+            transition: background 0.35s ease, padding 0.35s ease;
+            border-radius: 6px;
+        }
+
+        .eng-feature:hover {
+            background: rgba(255,255,255,0.025);
+            padding-left: 0.75rem;
+            padding-right: 0.75rem;
+        }
+
+        .eng-feature-index {
+            font-family: var(--font-mono);
+            font-size: 0.5625rem;
+            color: rgba(255,255,255,0.15);
+            text-align: right;
+        }
+
+        .eng-feature-body {}
+
+        .eng-feature-tag {
+            font-family: var(--font-mono);
+            font-size: 0.5rem;
+            letter-spacing: 0.18em;
+            text-transform: uppercase;
+            color: rgba(255,255,255,0.3);
+            margin-bottom: 0.2rem;
+        }
+
+        .eng-feature-name {
+            font-size: 0.875rem;
+            font-weight: 600;
+            color: rgba(255,255,255,0.85);
+            letter-spacing: -0.01em;
+            margin-bottom: 0.2rem;
+        }
+
+        .eng-feature-detail {
+            font-size: 0.75rem;
+            line-height: 1.6;
+            color: rgba(255,255,255,0.3);
+            font-weight: 300;
+        }
+
+        .eng-feature-badge {
+            font-family: var(--font-mono);
+            font-size: 0.5625rem;
+            letter-spacing: 0.08em;
+            color: rgba(255,255,255,0.2);
+            background: rgba(255,255,255,0.04);
+            border: 1px solid rgba(255,255,255,0.06);
+            border-radius: 100px;
+            padding: 0.25rem 0.625rem;
+            white-space: nowrap;
+        }
+
+        /* ─── Bottom CTA ─── */
+        .eng-cta-row {
+            display: flex;
+            align-items: center;
+            gap: 1.5rem;
+            opacity: 0;
+            transform: translateY(18px);
+        }
+
+        .eng-cta-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.75rem;
+            padding: 0.875rem 2rem;
+            background: rgba(255,255,255,0.06);
+            border: 1px solid rgba(255,255,255,0.1);
+            border-radius: 100px;
+            font-family: var(--font-primary);
+            font-size: 0.75rem;
+            font-weight: 600;
+            letter-spacing: 0.12em;
+            text-transform: uppercase;
+            color: rgba(255,255,255,0.75);
+            text-decoration: none;
+            cursor: none;
+            transition: background 0.4s ease, border-color 0.4s ease, color 0.4s ease, gap 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .eng-cta-link::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: rgba(255,255,255,0.08);
+            transform: scaleX(0);
+            transform-origin: left;
+            transition: transform 0.5s var(--ease-out);
+            border-radius: inherit;
+        }
+
+        .eng-cta-link:hover::before {
+            transform: scaleX(1);
+        }
+
+        .eng-cta-link:hover {
+            color: rgba(255,255,255,0.95);
+            gap: 1rem;
+        }
+
+        .eng-cta-link svg {
+            width: 14px;
+            height: 14px;
+            transition: transform 0.3s var(--ease-out);
+        }
+
+        .eng-cta-link:hover svg {
+            transform: translateX(4px);
+        }
+
+        .eng-stats-row {
+            display: flex;
+            gap: 2.5rem;
+        }
+
+        .eng-stat-item {
+            display: flex;
+            flex-direction: column;
+            gap: 0.25rem;
+        }
+
+        .eng-stat-value {
+            font-family: var(--font-mono);
+            font-size: 1.25rem;
+            font-weight: 700;
+            color: rgba(255,255,255,0.75);
+            letter-spacing: -0.02em;
+        }
+
+        .eng-stat-label {
+            font-family: var(--font-mono);
+            font-size: 0.5rem;
+            letter-spacing: 0.2em;
+            text-transform: uppercase;
+            color: rgba(255,255,255,0.2);
+        }
+
+        /* ─── Decorative large number ─── */
+        .eng-bg-num {
+            position: absolute;
+            bottom: -3rem;
+            right: 2rem;
+            font-size: 18rem;
+            font-weight: 900;
+            letter-spacing: -0.06em;
+            color: rgba(255,255,255,0.02);
+            line-height: 1;
+            pointer-events: none;
+            user-select: none;
+        }
+
+        /* ─── Responsive ─── */
+        @media (max-width: 900px) {
+            .eng-container {
+                grid-template-columns: 1fr;
+            }
+
+            .eng-image-col {
+                padding: 4rem 2rem 2rem;
+                border-right: none;
+                border-bottom: 1px solid rgba(255,255,255,0.05);
+            }
+
+            .eng-image-stage {
+                max-width: 280px;
+            }
+
+            .spec-pill-1, .spec-pill-3 { left: 0; }
+            .spec-pill-2, .spec-pill-4 { right: 0; }
+
+            .eng-text-col {
+                padding: 3rem 2rem 4rem;
+            }
+
+            .eng-bg-num {
+                font-size: 8rem;
+            }
+        }
+
+        /* ══════════════════════════════════════
            SCROLLBAR
         ══════════════════════════════════════ */
         ::-webkit-scrollbar {
@@ -768,6 +1222,158 @@
                     <span class="scroll-indicator-text">Scroll to control</span>
                     <div class="scroll-indicator-line"></div>
                 </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ══════════════════════════════════════════════════════════
+         SECOND FOLD — ENGENHARIA & TECNOLOGIA
+    ══════════════════════════════════════════════════════════ -->
+    <section id="tecnologia" class="engineering-section">
+        <div class="eng-bg-grid"></div>
+        <div class="eng-top-rule" id="eng-top-rule"></div>
+        <span class="eng-section-tag">02 / Tecnologia</span>
+        <div class="eng-bg-num">02</div>
+
+        <div class="eng-container">
+
+            <!-- ── Left: Image Column ── -->
+            <div class="eng-image-col" id="eng-image-col">
+
+                <div class="eng-measure" id="eng-measure">
+                    <span class="eng-measure-label">Precision</span>
+                    <div class="eng-measure-bar"></div>
+                    <span class="eng-measure-label">Series</span>
+                </div>
+
+                <!-- Floating spec pills -->
+                <div class="spec-pill spec-pill-1" id="spill-1">
+                    <span class="pill-indicator"></span>
+                    Liga 7075-T6
+                </div>
+                <div class="spec-pill spec-pill-2" id="spill-2">
+                    <span class="pill-indicator"></span>
+                    Tinta 80nm
+                </div>
+                <div class="spec-pill spec-pill-3" id="spill-3">
+                    <span class="pill-indicator"></span>
+                    Ponta Tungstênio
+                </div>
+                <div class="spec-pill spec-pill-4" id="spill-4">
+                    <span class="pill-indicator"></span>
+                    Fluxo Suíço
+                </div>
+
+                <div class="eng-image-stage" id="eng-image-stage">
+                    <div class="eng-image-glow"></div>
+                    <div class="eng-image-wrapper">
+                        <img
+                            src="assets/raw_files/IMG_6395-Grande.jpeg"
+                            alt="Artools Pigmentum Precision Pen — Vista lateral"
+                            loading="lazy"
+                        />
+                    </div>
+                </div>
+            </div>
+
+            <!-- ── Right: Text Column ── -->
+            <div class="eng-text-col">
+
+                <!-- Eyebrow -->
+                <div class="eng-eyebrow" id="eng-eyebrow">
+                    <div class="eng-eyebrow-dash"></div>
+                    <span class="eng-eyebrow-text">Artools Pigmentum — Engenharia de Precisão</span>
+                </div>
+
+                <!-- Headline -->
+                <h2 class="eng-headline" aria-label="Construída para durar séculos.">
+                    <span class="eng-headline-line" id="ehl-1">Construída</span>
+                    <span class="eng-headline-line accent" id="ehl-2">para durar</span>
+                    <span class="eng-headline-line" id="ehl-3">séculos.</span>
+                </h2>
+
+                <!-- Intro -->
+                <p class="eng-intro" id="eng-intro">
+                    Cada componente foi escolhido com a mesma obsessão que move a engenharia de precisão suíça.
+                    Não é apenas uma caneta — é um instrumento calibrado ao milímetro.
+                </p>
+
+                <!-- Feature List -->
+                <div class="eng-features" id="eng-features">
+
+                    <div class="eng-feature" id="ef-1">
+                        <span class="eng-feature-index">01</span>
+                        <div class="eng-feature-body">
+                            <div class="eng-feature-tag">Material do Corpo</div>
+                            <div class="eng-feature-name">Alumínio Aeroespacial 7075-T6</div>
+                            <div class="eng-feature-detail">A mesma liga usada em fuselagens de aeronaves militares e satélites. Resistência à tração de 572 MPa com apenas 2,8 g/cm³.</div>
+                        </div>
+                        <span class="eng-feature-badge">Aero-Grade</span>
+                    </div>
+
+                    <div class="eng-feature" id="ef-2">
+                        <span class="eng-feature-index">02</span>
+                        <div class="eng-feature-body">
+                            <div class="eng-feature-tag">Sistema de Tinta</div>
+                            <div class="eng-feature-name">Tinta Pigmentada Nanométrica 80nm</div>
+                            <div class="eng-feature-detail">Partículas 40× menores que um fio de cabelo. Permanência archival superior a 200 anos. Resistente à água, álcool e luz UV.</div>
+                        </div>
+                        <span class="eng-feature-badge">Archival+</span>
+                    </div>
+
+                    <div class="eng-feature" id="ef-3">
+                        <span class="eng-feature-index">03</span>
+                        <div class="eng-feature-body">
+                            <div class="eng-feature-tag">Ponta de Escrita</div>
+                            <div class="eng-feature-name">Ponta de Tungstênio Carbonetado</div>
+                            <div class="eng-feature-detail">Liga WC-Co usada em brocas de precisão CNC. Dureza Vickers 1.700 HV. Certificada para mais de 3.000 metros de escrita contínua.</div>
+                        </div>
+                        <span class="eng-feature-badge">3.000m</span>
+                    </div>
+
+                    <div class="eng-feature" id="ef-4">
+                        <span class="eng-feature-index">04</span>
+                        <div class="eng-feature-body">
+                            <div class="eng-feature-tag">Mecanismo de Fluxo</div>
+                            <div class="eng-feature-name">Válvula de Pressão Regulada Suíça</div>
+                            <div class="eng-feature-detail">Microengenheirada com tolerâncias de ±0,003mm. Fluxo de tinta constante em qualquer ângulo de 0° a 90°, sem gotejamento.</div>
+                        </div>
+                        <span class="eng-feature-badge">Swiss Mfg.</span>
+                    </div>
+
+                    <div class="eng-feature" id="ef-5">
+                        <span class="eng-feature-index">05</span>
+                        <div class="eng-feature-body">
+                            <div class="eng-feature-tag">Ergonomia</div>
+                            <div class="eng-feature-name">Geometria Biomecânica Computacional</div>
+                            <div class="eng-feature-detail">Modelada com software de análise de elementos finitos. Ângulo de escrita ideal de 52°, distribuição de pressão equalizada em 3 pontos.</div>
+                        </div>
+                        <span class="eng-feature-badge">FEA Design</span>
+                    </div>
+
+                </div>
+
+                <!-- CTA Row -->
+                <div class="eng-cta-row" id="eng-cta-row">
+                    <a href="#comprar" class="eng-cta-link" aria-label="Adquirir a Artools Precision Pen">
+                        <span>Adquirir agora</span>
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M5 12h14M12 5l7 7-7 7"/>
+                        </svg>
+                    </a>
+
+                    <div class="eng-stats-row">
+                        <div class="eng-stat-item">
+                            <span class="eng-stat-value">200+</span>
+                            <span class="eng-stat-label">Anos de permanência</span>
+                        </div>
+                        <div class="eng-stat-item">
+                            <span class="eng-stat-value">80nm</span>
+                            <span class="eng-stat-label">Partícula de pigmento</span>
+                        </div>
+                    </div>
+                </div>
+
             </div>
         </div>
     </section>
@@ -1068,6 +1674,169 @@
                     indicatorHidden = false;
                 }
             }, { passive: true });
+        })();
+    </script>
+
+    <!-- ══════════════════════════════════════
+         SECOND FOLD — GSAP ANIMATIONS
+    ══════════════════════════════════════ -->
+    <script>
+        (function () {
+
+            const engSection = document.getElementById('tecnologia');
+            if (!engSection) return;
+
+            /* ── Top rule line draw ── */
+            gsap.to('#eng-top-rule', {
+                scaleX: 1,
+                duration: 1.6,
+                ease: 'power3.out',
+                scrollTrigger: {
+                    trigger: engSection,
+                    start: 'top 85%',
+                }
+            });
+
+            /* ── Measure bar ── */
+            gsap.to('#eng-measure', {
+                opacity: 1,
+                duration: 1.2,
+                ease: 'power3.out',
+                scrollTrigger: {
+                    trigger: engSection,
+                    start: 'top 75%',
+                }
+            });
+
+            /* ── Pen image entrance ── */
+            gsap.fromTo('#eng-image-stage', {
+                opacity: 0,
+                y: 70,
+                rotateZ: -6,
+            }, {
+                opacity: 1,
+                y: 0,
+                rotateZ: -3,
+                duration: 1.6,
+                ease: 'power4.out',
+                scrollTrigger: {
+                    trigger: engSection,
+                    start: 'top 72%',
+                }
+            });
+
+            /* ── Parallax on the image as you scroll ── */
+            gsap.to('#eng-image-stage', {
+                y: -50,
+                ease: 'none',
+                scrollTrigger: {
+                    trigger: engSection,
+                    start: 'top bottom',
+                    end: 'bottom top',
+                    scrub: 1.5,
+                }
+            });
+
+            /* ── Spec pills staggered ── */
+            gsap.to(['#spill-1', '#spill-2', '#spill-3', '#spill-4'], {
+                opacity: 1,
+                y: 0,
+                duration: 0.9,
+                ease: 'power4.out',
+                stagger: 0.18,
+                scrollTrigger: {
+                    trigger: engSection,
+                    start: 'top 65%',
+                }
+            });
+
+            /* Floating animation after reveal */
+            document.querySelectorAll('.spec-pill').forEach((pill, i) => {
+                const dir = i % 2 === 0 ? -6 : 6;
+                gsap.to(pill, {
+                    y: dir,
+                    duration: 3 + i * 0.5,
+                    ease: 'sine.inOut',
+                    repeat: -1,
+                    yoyo: true,
+                    delay: i * 0.4,
+                });
+            });
+
+            /* ── Eyebrow ── */
+            gsap.to('#eng-eyebrow', {
+                opacity: 1,
+                y: 0,
+                duration: 0.9,
+                ease: 'power4.out',
+                scrollTrigger: {
+                    trigger: engSection,
+                    start: 'top 70%',
+                }
+            });
+
+            /* ── Headline lines clip-path reveal ── */
+            gsap.to(['#ehl-1', '#ehl-2', '#ehl-3'], {
+                opacity: 1,
+                y: 0,
+                duration: 1.3,
+                ease: 'power4.out',
+                stagger: 0.13,
+                scrollTrigger: {
+                    trigger: engSection,
+                    start: 'top 68%',
+                }
+            });
+
+            /* ── Intro paragraph ── */
+            gsap.to('#eng-intro', {
+                opacity: 1,
+                y: 0,
+                duration: 1,
+                ease: 'power4.out',
+                scrollTrigger: {
+                    trigger: '#eng-intro',
+                    start: 'top 82%',
+                }
+            });
+
+            /* ── Feature rows slide in from left, staggered ── */
+            gsap.to(['#ef-1', '#ef-2', '#ef-3', '#ef-4', '#ef-5'], {
+                opacity: 1,
+                x: 0,
+                duration: 0.8,
+                ease: 'power4.out',
+                stagger: 0.1,
+                scrollTrigger: {
+                    trigger: '#eng-features',
+                    start: 'top 80%',
+                }
+            });
+
+            /* ── CTA Row ── */
+            gsap.to('#eng-cta-row', {
+                opacity: 1,
+                y: 0,
+                duration: 0.9,
+                ease: 'power4.out',
+                scrollTrigger: {
+                    trigger: '#eng-cta-row',
+                    start: 'top 88%',
+                }
+            });
+
+            /* ── Subtle exit: image drifts as section leaves ── */
+            gsap.to('#eng-image-col', {
+                opacity: 0.3,
+                ease: 'none',
+                scrollTrigger: {
+                    trigger: engSection,
+                    start: 'bottom 60%',
+                    end: 'bottom top',
+                    scrub: true,
+                }
+            });
+
         })();
     </script>
 </body>
