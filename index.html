@@ -338,12 +338,12 @@
 
         .hero-title-line {
             display: block;
-            font-size: clamp(4rem, 10vw, 9rem);
+            font-size: clamp(3rem, 7.5vw, 7rem);
             font-weight: 100;
             letter-spacing: -0.04em;
-            line-height: 0.9;
+            line-height: 0.92;
             -webkit-text-fill-color: transparent;
-            -webkit-text-stroke: 1.5px rgba(255, 255, 255, 0.85);
+            -webkit-text-stroke: 1.5px rgba(255, 255, 255, 0.75);
             color: transparent;
         }
 
@@ -366,8 +366,13 @@
         }
 
         .hero-title-line.filled-dark {
-            -webkit-text-fill-color: rgba(255, 255, 255, 0.95);
+            -webkit-text-fill-color: var(--color-stone-900);
             -webkit-text-stroke: 0;
+            color: var(--color-stone-900);
+            font-weight: 600;
+            font-size: clamp(3.5rem, 8.5vw, 8rem);
+            letter-spacing: -0.05em;
+            line-height: 0.88;
         }
 
         .hero-cta-btn {
@@ -568,7 +573,7 @@
             }
 
             .hero-title-line {
-                font-size: clamp(3rem, 12vw, 6rem);
+                font-size: clamp(2.5rem, 10vw, 5rem);
                 -webkit-text-stroke-width: 1px;
             }
 
@@ -721,9 +726,9 @@
 
                     <!-- Title -->
                     <div class="hero-title" id="hero-title">
-                        <span class="hero-title-line filled" id="title-line-1">A caneta</span>
+                        <span class="hero-title-line filled-dark" id="title-line-1">A caneta</span>
                         <span class="hero-title-line" id="title-line-2">mais precisa</span>
-                        <span class="hero-title-line" id="title-line-3">do mundo.</span>
+                        <span class="hero-title-line filled-dark" id="title-line-3">do mundo.</span>
                     </div>
 
                     <!-- Tagline -->
