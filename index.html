@@ -699,71 +699,56 @@
         /* ─── Image Column ─── */
         .eng-image-col {
             position: relative;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            padding: 7rem 3rem 7rem 5rem;
+            overflow: hidden;
             border-right: 1px solid rgba(255,255,255,0.05);
+            min-height: 100vh;
         }
 
         .eng-image-stage {
-            position: relative;
-            width: 100%;
-            max-width: 400px;
+            position: absolute;
+            inset: 0;
+            z-index: 2;
         }
 
         .eng-image-glow {
             position: absolute;
-            inset: -20%;
-            background: radial-gradient(ellipse at center, rgba(214,211,209,0.06) 0%, transparent 70%);
+            inset: 0;
+            background: radial-gradient(ellipse at 50% 50%, rgba(214,211,209,0.04) 0%, transparent 65%);
             pointer-events: none;
+            z-index: 3;
         }
 
         .eng-image-wrapper {
-            position: relative;
-            z-index: 2;
+            width: 100%;
+            height: 100%;
         }
 
         .eng-image-wrapper img {
             width: 100%;
-            height: auto;
+            height: 100%;
             display: block;
-            border-radius: 16px;
-            filter: contrast(1.08) saturate(0.85);
-            box-shadow:
-                0 60px 120px rgba(0,0,0,0.7),
-                0 20px 40px rgba(0,0,0,0.4),
-                0 0 0 1px rgba(255,255,255,0.04);
-            transform: rotate(-3deg);
+            object-fit: cover;
+            object-position: center center;
+            filter: contrast(1.05) brightness(0.95);
             will-change: transform;
-            transition: transform 0.8s var(--ease-out);
+            transition: transform 1s var(--ease-out);
         }
 
-        .eng-image-wrapper:hover img {
-            transform: rotate(0deg) scale(1.015);
+        .eng-image-col:hover .eng-image-wrapper img {
+            transform: scale(1.025);
         }
 
         .eng-image-reflection {
-            position: absolute;
-            bottom: -18%;
-            left: 5%;
-            right: 5%;
-            height: 60%;
-            background: inherit;
-            filter: blur(20px) brightness(0.15);
-            transform: scaleY(-1) translateY(-10%);
-            border-radius: 50%;
-            opacity: 0.5;
-            pointer-events: none;
+            display: none;
         }
 
         /* ─── Floating Spec Badges ─── */
         .spec-pill {
             position: absolute;
-            background: rgba(255,255,255,0.04);
-            border: 1px solid rgba(255,255,255,0.07);
-            backdrop-filter: blur(12px);
-            -webkit-backdrop-filter: blur(12px);
+            background: rgba(255,255,255,0.06);
+            border: 1px solid rgba(255,255,255,0.1);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
             border-radius: 100px;
             padding: 0.5rem 1.125rem;
             display: flex;
@@ -773,11 +758,12 @@
             font-size: 0.5625rem;
             letter-spacing: 0.12em;
             text-transform: uppercase;
-            color: rgba(255,255,255,0.45);
+            color: rgba(255,255,255,0.6);
             white-space: nowrap;
             opacity: 0;
             transform: translateY(16px);
             will-change: transform, opacity;
+            z-index: 10;
         }
 
         .spec-pill .pill-indicator {
@@ -794,14 +780,14 @@
             50% { opacity: 1; transform: scale(1.3); }
         }
 
-        .spec-pill-1 { top: 18%; left: -2%; }
-        .spec-pill-2 { top: 30%; right: -6%; }
-        .spec-pill-3 { bottom: 32%; left: -4%; }
-        .spec-pill-4 { bottom: 18%; right: -3%; }
+        .spec-pill-1 { top: 18%; left: 1.5rem; }
+        .spec-pill-2 { top: 32%; right: 1.5rem; }
+        .spec-pill-3 { bottom: 30%; left: 1.5rem; }
+        .spec-pill-4 { bottom: 16%; right: 1.5rem; }
 
         .eng-measure {
             position: absolute;
-            left: 2rem;
+            left: 1.25rem;
             top: 50%;
             transform: translateY(-50%);
             display: flex;
@@ -809,6 +795,7 @@
             align-items: center;
             gap: 0.5rem;
             opacity: 0;
+            z-index: 10;
         }
 
         .eng-measure-label {
@@ -1074,17 +1061,11 @@
             }
 
             .eng-image-col {
-                padding: 4rem 2rem 2rem;
+                min-height: 55vw;
+                height: 55vw;
                 border-right: none;
                 border-bottom: 1px solid rgba(255,255,255,0.05);
             }
-
-            .eng-image-stage {
-                max-width: 280px;
-            }
-
-            .spec-pill-1, .spec-pill-3 { left: 0; }
-            .spec-pill-2, .spec-pill-4 { right: 0; }
 
             .eng-text-col {
                 padding: 3rem 2rem 4rem;
@@ -1268,7 +1249,7 @@
                     <div class="eng-image-glow"></div>
                     <div class="eng-image-wrapper">
                         <img
-                            src="assets/raw_files/IMG_6395-Grande.jpeg"
+                            src="assets/pen-closeup-portrait.jpg"
                             alt="Artools Pigmentum Precision Pen — Vista lateral"
                             loading="lazy"
                         />
@@ -1376,6 +1357,669 @@
 
             </div>
         </div>
+    </section>
+
+    <!-- ══════════════════════════════════════════════════════════
+         THIRD FOLD — WRITING EXPERIENCE + SOCIAL PROOF
+    ══════════════════════════════════════════════════════════ -->
+    <style>
+        /* ════════════════════════════════════════
+           EXPERIENCE SECTION (Third Fold)
+        ════════════════════════════════════════ */
+        .experience-section {
+            position: relative;
+            background: #EAEAE5;
+            color: #1C1C1C;
+            overflow: hidden;
+        }
+
+        /* ── Top border ── */
+        .exp-top-rule {
+            position: absolute;
+            top: 0; left: 0; right: 0;
+            height: 1px;
+            background: linear-gradient(to right, transparent 0%, rgba(28,28,28,0.12) 20%, rgba(28,28,28,0.12) 80%, transparent 100%);
+            transform-origin: left center;
+            transform: scaleX(0);
+        }
+
+        .exp-section-tag {
+            position: absolute;
+            top: 2.25rem;
+            right: 2.5rem;
+            font-family: var(--font-mono);
+            font-size: 0.5625rem;
+            letter-spacing: 0.25em;
+            text-transform: uppercase;
+            color: rgba(28,28,28,0.18);
+            writing-mode: vertical-rl;
+        }
+
+        /* ── Container ── */
+        .exp-inner {
+            max-width: 1440px;
+            margin: 0 auto;
+            padding: 0 clamp(1.5rem, 5vw, 5rem);
+        }
+
+        /* ── Header row ── */
+        .exp-header {
+            display: grid;
+            grid-template-columns: 1fr 1.6fr;
+            gap: 3rem;
+            align-items: end;
+            padding: 6rem 0 4rem;
+            border-bottom: 1px solid rgba(28,28,28,0.07);
+        }
+
+        .exp-header-meta {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        .exp-number {
+            font-family: var(--font-mono);
+            font-size: clamp(5rem, 10vw, 10rem);
+            font-weight: 900;
+            line-height: 1;
+            letter-spacing: -0.06em;
+            color: rgba(28,28,28,0.05);
+            user-select: none;
+            opacity: 0;
+            transform: translateX(-30px);
+        }
+
+        .exp-eyebrow {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            opacity: 0;
+            transform: translateY(16px);
+        }
+
+        .exp-eyebrow-dot {
+            width: 6px; height: 6px;
+            border-radius: 50%;
+            background: rgba(28,28,28,0.35);
+            flex-shrink: 0;
+            animation: exp-dot-pulse 2.5s ease-in-out infinite;
+        }
+
+        @keyframes exp-dot-pulse {
+            0%, 100% { opacity: 0.35; transform: scale(1); }
+            50% { opacity: 0.8; transform: scale(1.3); }
+        }
+
+        .exp-eyebrow-text {
+            font-family: var(--font-mono);
+            font-size: 0.5625rem;
+            letter-spacing: 0.3em;
+            text-transform: uppercase;
+            color: rgba(28,28,28,0.4);
+        }
+
+        .exp-headline {
+            font-size: clamp(2.5rem, 4.5vw, 5rem);
+            font-weight: 700;
+            line-height: 0.9;
+            letter-spacing: -0.04em;
+            color: #1C1C1C;
+            overflow: hidden;
+        }
+
+        .exp-hl-line {
+            display: block;
+            transform: translateY(110%);
+            opacity: 0;
+            will-change: transform, opacity;
+        }
+
+        .exp-hl-line.outline {
+            -webkit-text-fill-color: transparent;
+            -webkit-text-stroke: 1.5px rgba(28,28,28,0.25);
+            color: transparent;
+        }
+
+        /* ── Video showcase ── */
+        .exp-video-section {
+            padding: 4rem 0;
+            border-bottom: 1px solid rgba(28,28,28,0.07);
+        }
+
+        .exp-video-frame {
+            position: relative;
+            width: 100%;
+            aspect-ratio: 16 / 7;
+            border-radius: 20px;
+            overflow: hidden;
+            opacity: 0;
+            transform: translateY(40px);
+            box-shadow:
+                0 30px 70px rgba(0,0,0,0.12),
+                0 8px 20px rgba(0,0,0,0.06),
+                0 0 0 1px rgba(0,0,0,0.04);
+        }
+
+        .exp-video-frame video {
+            position: absolute;
+            inset: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .exp-video-frame .exp-vid-overlay {
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(
+                135deg,
+                rgba(28,28,28,0.15) 0%,
+                transparent 50%,
+                rgba(28,28,28,0.1) 100%
+            );
+            z-index: 1;
+        }
+
+        .exp-video-caption {
+            position: absolute;
+            bottom: 1.5rem;
+            left: 1.75rem;
+            z-index: 2;
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+
+        .exp-video-caption-dot {
+            width: 7px; height: 7px;
+            border-radius: 50%;
+            background: rgba(255,255,255,0.8);
+            flex-shrink: 0;
+        }
+
+        .exp-video-caption-text {
+            font-family: var(--font-mono);
+            font-size: 0.5625rem;
+            letter-spacing: 0.2em;
+            text-transform: uppercase;
+            color: rgba(255,255,255,0.7);
+        }
+
+        /* ── Stats row ── */
+        .exp-stats {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            border-bottom: 1px solid rgba(28,28,28,0.07);
+        }
+
+        .exp-stat-item {
+            padding: 2.5rem 2rem;
+            border-right: 1px solid rgba(28,28,28,0.07);
+            opacity: 0;
+            transform: translateY(24px);
+        }
+
+        .exp-stat-item:last-child {
+            border-right: none;
+        }
+
+        .exp-stat-value-row {
+            display: flex;
+            align-items: baseline;
+            gap: 0.125rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .exp-stat-num {
+            font-size: clamp(2rem, 3.5vw, 3.25rem);
+            font-weight: 800;
+            letter-spacing: -0.04em;
+            color: #1C1C1C;
+            line-height: 1;
+            font-variant-numeric: tabular-nums;
+        }
+
+        .exp-stat-sfx {
+            font-family: var(--font-mono);
+            font-size: 1rem;
+            font-weight: 600;
+            color: rgba(28,28,28,0.35);
+            letter-spacing: -0.02em;
+        }
+
+        .exp-stat-lbl {
+            font-family: var(--font-mono);
+            font-size: 0.5625rem;
+            letter-spacing: 0.2em;
+            text-transform: uppercase;
+            color: rgba(28,28,28,0.38);
+        }
+
+        /* ── Testimonials ── */
+        .exp-testimonials-header {
+            padding: 4rem 0 2.5rem;
+            display: flex;
+            align-items: baseline;
+            justify-content: space-between;
+        }
+
+        .exp-testimonials-title {
+            font-size: clamp(1rem, 1.5vw, 1.25rem);
+            font-weight: 600;
+            letter-spacing: -0.02em;
+            color: #1C1C1C;
+            opacity: 0;
+            transform: translateY(14px);
+        }
+
+        .exp-testimonials-sub {
+            font-family: var(--font-mono);
+            font-size: 0.5625rem;
+            letter-spacing: 0.2em;
+            text-transform: uppercase;
+            color: rgba(28,28,28,0.35);
+            opacity: 0;
+            transform: translateY(14px);
+        }
+
+        .exp-cards {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1.25rem;
+            padding-bottom: 4rem;
+            border-bottom: 1px solid rgba(28,28,28,0.07);
+        }
+
+        .exp-card {
+            background: rgba(255,255,255,0.55);
+            border: 1px solid rgba(28,28,28,0.07);
+            border-radius: 16px;
+            padding: 2.25rem 2rem;
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+            opacity: 0;
+            transform: translateY(32px);
+            will-change: transform, opacity;
+            transition: background 0.4s ease, box-shadow 0.4s ease, transform 0.4s var(--ease-out), border-color 0.3s ease;
+            cursor: default;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .exp-card::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: radial-gradient(
+                500px circle at var(--mx, 50%) var(--my, 50%),
+                rgba(28,28,28,0.03),
+                transparent 40%
+            );
+            opacity: 0;
+            transition: opacity 0.4s ease;
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        .exp-card:hover::before { opacity: 1; }
+
+        .exp-card:hover {
+            background: rgba(255,255,255,0.85);
+            box-shadow: 0 16px 40px rgba(0,0,0,0.07), 0 4px 12px rgba(0,0,0,0.04);
+            transform: translateY(-4px);
+            border-color: rgba(28,28,28,0.1);
+        }
+
+        .exp-card-quote-mark {
+            font-size: 3.5rem;
+            line-height: 0.7;
+            font-weight: 900;
+            color: rgba(28,28,28,0.08);
+            font-family: Georgia, serif;
+            user-select: none;
+            flex-shrink: 0;
+        }
+
+        .exp-card-text {
+            font-size: 0.9375rem;
+            line-height: 1.7;
+            color: rgba(28,28,28,0.75);
+            font-weight: 400;
+            flex: 1;
+            position: relative;
+            z-index: 1;
+        }
+
+        .exp-card-text em {
+            font-style: italic;
+            color: rgba(28,28,28,0.55);
+        }
+
+        .exp-card-footer {
+            display: flex;
+            align-items: center;
+            gap: 0.875rem;
+            padding-top: 1.25rem;
+            border-top: 1px solid rgba(28,28,28,0.06);
+            position: relative;
+            z-index: 1;
+        }
+
+        .exp-card-avatar {
+            width: 36px; height: 36px;
+            border-radius: 50%;
+            background: #1C1C1C;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+        }
+
+        .exp-card-avatar span {
+            font-family: var(--font-mono);
+            font-size: 0.625rem;
+            font-weight: 700;
+            color: #EAEAE5;
+            letter-spacing: 0.05em;
+        }
+
+        .exp-card-author {}
+
+        .exp-card-name {
+            font-size: 0.8125rem;
+            font-weight: 600;
+            color: #1C1C1C;
+            letter-spacing: -0.01em;
+        }
+
+        .exp-card-role {
+            font-family: var(--font-mono);
+            font-size: 0.5rem;
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+            color: rgba(28,28,28,0.35);
+            margin-top: 0.1rem;
+        }
+
+        .exp-card-stars {
+            margin-left: auto;
+            display: flex;
+            gap: 2px;
+        }
+
+        .exp-card-stars span {
+            font-size: 0.6rem;
+            color: rgba(28,28,28,0.5);
+        }
+
+        /* ── Bottom Marquee ── */
+        .exp-marquee-section {
+            padding: 2rem 0;
+            overflow: hidden;
+        }
+
+        @keyframes exp-marquee-scroll {
+            from { transform: translateX(0); }
+            to { transform: translateX(-50%); }
+        }
+
+        .exp-marquee-track {
+            display: flex;
+            width: max-content;
+            animation: exp-marquee-scroll 35s linear infinite;
+        }
+
+        .exp-marquee-track:hover {
+            animation-play-state: paused;
+        }
+
+        .exp-marquee-item {
+            display: flex;
+            align-items: center;
+            gap: 2rem;
+            padding: 0 2rem;
+            white-space: nowrap;
+        }
+
+        .exp-marquee-word {
+            font-family: var(--font-mono);
+            font-size: 0.625rem;
+            letter-spacing: 0.25em;
+            text-transform: uppercase;
+            color: rgba(28,28,28,0.35);
+            transition: color 0.3s ease;
+        }
+
+        .exp-marquee-track:hover .exp-marquee-word {
+            color: rgba(28,28,28,0.55);
+        }
+
+        .exp-marquee-sep {
+            width: 4px; height: 4px;
+            border-radius: 50%;
+            background: rgba(28,28,28,0.15);
+            flex-shrink: 0;
+        }
+
+        /* ── Responsive ── */
+        @media (max-width: 1024px) {
+            .exp-stats {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            .exp-stat-item:nth-child(2) {
+                border-right: none;
+            }
+            .exp-stat-item:nth-child(3) {
+                border-top: 1px solid rgba(28,28,28,0.07);
+            }
+            .exp-stat-item:nth-child(4) {
+                border-top: 1px solid rgba(28,28,28,0.07);
+            }
+        }
+
+        @media (max-width: 900px) {
+            .exp-header {
+                grid-template-columns: 1fr;
+                gap: 1.5rem;
+                padding: 4rem 0 3rem;
+            }
+            .exp-number {
+                font-size: 5rem;
+            }
+            .exp-cards {
+                grid-template-columns: 1fr;
+            }
+            .exp-video-frame {
+                aspect-ratio: 16 / 9;
+            }
+        }
+
+        @media (max-width: 640px) {
+            .exp-stats {
+                grid-template-columns: 1fr 1fr;
+            }
+            .exp-stat-item:nth-child(2) {
+                border-right: none;
+            }
+            .exp-testimonials-header {
+                flex-direction: column;
+                gap: 0.5rem;
+            }
+        }
+    </style>
+
+    <section id="escrita" class="experience-section">
+        <div class="exp-top-rule" id="exp-top-rule"></div>
+        <span class="exp-section-tag">03 / Experiência</span>
+
+        <div class="exp-inner">
+
+            <!-- ── Header ── -->
+            <div class="exp-header">
+                <div class="exp-header-meta">
+                    <div class="exp-number" id="exp-number">03</div>
+                    <div class="exp-eyebrow" id="exp-eyebrow">
+                        <span class="exp-eyebrow-dot"></span>
+                        <span class="exp-eyebrow-text">Artools Pigmentum — Para os que criam com intenção</span>
+                    </div>
+                </div>
+
+                <h2 class="exp-headline" aria-label="O traço que define o seu trabalho.">
+                    <span class="exp-hl-line" id="exp-hl-1">O traço que</span>
+                    <span class="exp-hl-line outline" id="exp-hl-2">define o seu</span>
+                    <span class="exp-hl-line" id="exp-hl-3">trabalho.</span>
+                </h2>
+            </div>
+
+            <!-- ── Video Showcase ── -->
+            <div class="exp-video-section">
+                <div class="exp-video-frame" id="exp-video-frame">
+                    <video autoplay muted loop playsinline preload="none">
+                        <source src="assets/raw_files/Artools_pigmentum_pen_video_delpmaspu_.mp4" type="video/mp4" />
+                    </video>
+                    <div class="exp-vid-overlay"></div>
+                    <div class="exp-video-caption">
+                        <div class="exp-video-caption-dot"></div>
+                        <span class="exp-video-caption-text">Artools Pigmentum 0.1 · Tinta Nanométrica Permanente</span>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+        <!-- ── Stats Row (full-width) ── -->
+        <div class="exp-stats" id="exp-stats">
+            <div class="exp-stat-item" id="exp-st-1">
+                <div class="exp-stat-value-row">
+                    <span class="exp-stat-num" data-count="10000" data-suffix="">0</span>
+                    <span class="exp-stat-sfx">+</span>
+                </div>
+                <span class="exp-stat-lbl">Criadores & Artistas</span>
+            </div>
+            <div class="exp-stat-item" id="exp-st-2">
+                <div class="exp-stat-value-row">
+                    <span class="exp-stat-num">0.1</span>
+                    <span class="exp-stat-sfx">mm</span>
+                </div>
+                <span class="exp-stat-lbl">Espessura de Traço</span>
+            </div>
+            <div class="exp-stat-item" id="exp-st-3">
+                <div class="exp-stat-value-row">
+                    <span class="exp-stat-num" data-count="98">0</span>
+                    <span class="exp-stat-sfx">%</span>
+                </div>
+                <span class="exp-stat-lbl">Taxa de Satisfação</span>
+            </div>
+            <div class="exp-stat-item" id="exp-st-4">
+                <div class="exp-stat-value-row">
+                    <span class="exp-stat-num" data-count="200">0</span>
+                    <span class="exp-stat-sfx">+</span>
+                </div>
+                <span class="exp-stat-lbl">Anos de Permanência</span>
+            </div>
+        </div>
+
+        <div class="exp-inner">
+
+            <!-- ── Testimonials ── -->
+            <div class="exp-testimonials-header">
+                <p class="exp-testimonials-title" id="exp-test-title">O que dizem os que já usam</p>
+                <span class="exp-testimonials-sub" id="exp-test-sub">Avaliações verificadas</span>
+            </div>
+
+            <div class="exp-cards">
+
+                <div class="exp-card" id="exp-card-1">
+                    <div class="exp-card-quote-mark">❝</div>
+                    <p class="exp-card-text">
+                        Jamais imaginei que uma caneta pudesse transformar o resultado do meu trabalho desta forma. O traço é absolutamente consistente do primeiro milímetro ao último — <em>sem falhar uma única vez.</em>
+                    </p>
+                    <div class="exp-card-footer">
+                        <div class="exp-card-avatar"><span>MV</span></div>
+                        <div class="exp-card-author">
+                            <div class="exp-card-name">Marina Vasconcellos</div>
+                            <div class="exp-card-role">Ilustradora Técnica · São Paulo</div>
+                        </div>
+                        <div class="exp-card-stars">
+                            <span>★</span><span>★</span><span>★</span><span>★</span><span>★</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="exp-card" id="exp-card-2">
+                    <div class="exp-card-quote-mark">❝</div>
+                    <p class="exp-card-text">
+                        A precisão de 0.1mm é o que diferencia um croqui amador de um projeto profissional. Uso a Artools em todos os meus levantamentos de campo. <em>Água, sol e pressão — ela não vacila.</em>
+                    </p>
+                    <div class="exp-card-footer">
+                        <div class="exp-card-avatar"><span>RA</span></div>
+                        <div class="exp-card-author">
+                            <div class="exp-card-name">Rodrigo Alencar</div>
+                            <div class="exp-card-role">Arquiteto · Rio de Janeiro</div>
+                        </div>
+                        <div class="exp-card-stars">
+                            <span>★</span><span>★</span><span>★</span><span>★</span><span>★</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="exp-card" id="exp-card-3">
+                    <div class="exp-card-quote-mark">❝</div>
+                    <p class="exp-card-text">
+                        O equilíbrio entre peso, grip e fluidez de tinta é simplesmente perfeito. É a única caneta que uso nos meus sketches de coleção. <em>Cada linha conta uma decisão criativa.</em>
+                    </p>
+                    <div class="exp-card-footer">
+                        <div class="exp-card-avatar"><span>YN</span></div>
+                        <div class="exp-card-author">
+                            <div class="exp-card-name">Yuki Nakamura</div>
+                            <div class="exp-card-role">Designer de Moda · Tokyo / SP</div>
+                        </div>
+                        <div class="exp-card-stars">
+                            <span>★</span><span>★</span><span>★</span><span>★</span><span>★</span>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+        <!-- ── Marquee ── -->
+        <div class="exp-marquee-section">
+            <div class="exp-marquee-track" id="exp-marquee-track">
+                <!-- Duplicated for seamless loop -->
+                <div class="exp-marquee-item">
+                    <span class="exp-marquee-word">Ilustração</span><div class="exp-marquee-sep"></div>
+                    <span class="exp-marquee-word">Arquitetura</span><div class="exp-marquee-sep"></div>
+                    <span class="exp-marquee-word">Design Editorial</span><div class="exp-marquee-sep"></div>
+                    <span class="exp-marquee-word">Design de Moda</span><div class="exp-marquee-sep"></div>
+                    <span class="exp-marquee-word">Arte de Tatuagem</span><div class="exp-marquee-sep"></div>
+                    <span class="exp-marquee-word">Quadrinhos</span><div class="exp-marquee-sep"></div>
+                    <span class="exp-marquee-word">Animação</span><div class="exp-marquee-sep"></div>
+                    <span class="exp-marquee-word">Caligrafia</span><div class="exp-marquee-sep"></div>
+                    <span class="exp-marquee-word">Urban Sketching</span><div class="exp-marquee-sep"></div>
+                    <span class="exp-marquee-word">Concept Art</span><div class="exp-marquee-sep"></div>
+                    <span class="exp-marquee-word">Gravura</span><div class="exp-marquee-sep"></div>
+                    <span class="exp-marquee-word">Artes Plásticas</span><div class="exp-marquee-sep"></div>
+                </div>
+                <div class="exp-marquee-item" aria-hidden="true">
+                    <span class="exp-marquee-word">Ilustração</span><div class="exp-marquee-sep"></div>
+                    <span class="exp-marquee-word">Arquitetura</span><div class="exp-marquee-sep"></div>
+                    <span class="exp-marquee-word">Design Editorial</span><div class="exp-marquee-sep"></div>
+                    <span class="exp-marquee-word">Design de Moda</span><div class="exp-marquee-sep"></div>
+                    <span class="exp-marquee-word">Arte de Tatuagem</span><div class="exp-marquee-sep"></div>
+                    <span class="exp-marquee-word">Quadrinhos</span><div class="exp-marquee-sep"></div>
+                    <span class="exp-marquee-word">Animação</span><div class="exp-marquee-sep"></div>
+                    <span class="exp-marquee-word">Caligrafia</span><div class="exp-marquee-sep"></div>
+                    <span class="exp-marquee-word">Urban Sketching</span><div class="exp-marquee-sep"></div>
+                    <span class="exp-marquee-word">Concept Art</span><div class="exp-marquee-sep"></div>
+                    <span class="exp-marquee-word">Gravura</span><div class="exp-marquee-sep"></div>
+                    <span class="exp-marquee-word">Artes Plásticas</span><div class="exp-marquee-sep"></div>
+                </div>
+            </div>
+        </div>
+
     </section>
 
     <script>
@@ -1711,13 +2355,11 @@
             /* ── Pen image entrance ── */
             gsap.fromTo('#eng-image-stage', {
                 opacity: 0,
-                y: 70,
-                rotateZ: -6,
+                scale: 1.08,
             }, {
                 opacity: 1,
-                y: 0,
-                rotateZ: -3,
-                duration: 1.6,
+                scale: 1,
+                duration: 1.8,
                 ease: 'power4.out',
                 scrollTrigger: {
                     trigger: engSection,
@@ -1725,15 +2367,15 @@
                 }
             });
 
-            /* ── Parallax on the image as you scroll ── */
-            gsap.to('#eng-image-stage', {
-                y: -50,
+            /* ── Parallax: image slowly zooms/drifts on scroll ── */
+            gsap.to('#eng-image-stage .eng-image-wrapper img', {
+                scale: 1.08,
                 ease: 'none',
                 scrollTrigger: {
                     trigger: engSection,
                     start: 'top bottom',
                     end: 'bottom top',
-                    scrub: 1.5,
+                    scrub: 2,
                 }
             });
 
@@ -1834,6 +2476,169 @@
                     start: 'bottom 60%',
                     end: 'bottom top',
                     scrub: true,
+                }
+            });
+
+        })();
+    </script>
+
+    <!-- ══════════════════════════════════════
+         THIRD FOLD — GSAP ANIMATIONS
+    ══════════════════════════════════════ -->
+    <script>
+        (function () {
+
+            const expSection = document.getElementById('escrita');
+            if (!expSection) return;
+
+            /* ── Top rule draws in ── */
+            gsap.to('#exp-top-rule', {
+                scaleX: 1,
+                duration: 1.8,
+                ease: 'power3.out',
+                scrollTrigger: { trigger: expSection, start: 'top 90%' }
+            });
+
+            /* ── Section number fades in from left ── */
+            gsap.to('#exp-number', {
+                opacity: 1,
+                x: 0,
+                duration: 1.2,
+                ease: 'power4.out',
+                scrollTrigger: { trigger: expSection, start: 'top 78%' }
+            });
+
+            /* ── Eyebrow ── */
+            gsap.to('#exp-eyebrow', {
+                opacity: 1,
+                y: 0,
+                duration: 0.9,
+                ease: 'power4.out',
+                scrollTrigger: { trigger: expSection, start: 'top 74%' }
+            });
+
+            /* ── Headline lines staggered clip-path ── */
+            gsap.to(['#exp-hl-1', '#exp-hl-2', '#exp-hl-3'], {
+                opacity: 1,
+                y: 0,
+                duration: 1.2,
+                ease: 'power4.out',
+                stagger: 0.12,
+                scrollTrigger: { trigger: expSection, start: 'top 72%' }
+            });
+
+            /* ── Video frame entrance ── */
+            gsap.to('#exp-video-frame', {
+                opacity: 1,
+                y: 0,
+                duration: 1.4,
+                ease: 'power4.out',
+                scrollTrigger: { trigger: '#exp-video-frame', start: 'top 82%' }
+            });
+
+            /* ── Subtle video Ken Burns parallax on scroll ── */
+            gsap.to('#exp-video-frame video', {
+                scale: 1.06,
+                ease: 'none',
+                scrollTrigger: {
+                    trigger: '#exp-video-frame',
+                    start: 'top bottom',
+                    end: 'bottom top',
+                    scrub: 2
+                }
+            });
+
+            /* ── Stats stagger in ── */
+            gsap.to(['#exp-st-1', '#exp-st-2', '#exp-st-3', '#exp-st-4'], {
+                opacity: 1,
+                y: 0,
+                duration: 0.8,
+                ease: 'power4.out',
+                stagger: 0.1,
+                scrollTrigger: { trigger: '#exp-stats', start: 'top 80%' }
+            });
+
+            /* ── Counter animation ── */
+            function animateCounter(el) {
+                const target = parseInt(el.dataset.count, 10);
+                if (!target) return;
+                const suffix = el.nextElementSibling?.textContent || '';
+                let start = null;
+                const duration = 1600;
+
+                function easeOut(t) { return 1 - Math.pow(1 - t, 3); }
+
+                function tick(ts) {
+                    if (!start) start = ts;
+                    const elapsed = ts - start;
+                    const progress = Math.min(elapsed / duration, 1);
+                    const value = Math.round(easeOut(progress) * target);
+                    el.textContent = value >= 1000
+                        ? (value / 1000).toFixed(0) + 'K'
+                        : value;
+                    if (progress < 1) requestAnimationFrame(tick);
+                    else el.textContent = target >= 1000
+                        ? (target / 1000).toFixed(0) + 'K'
+                        : target;
+                }
+
+                requestAnimationFrame(tick);
+            }
+
+            ScrollTrigger.create({
+                trigger: '#exp-stats',
+                start: 'top 80%',
+                once: true,
+                onEnter: () => {
+                    document.querySelectorAll('.exp-stat-num[data-count]').forEach(animateCounter);
+                }
+            });
+
+            /* ── Testimonial title & sub ── */
+            gsap.to(['#exp-test-title', '#exp-test-sub'], {
+                opacity: 1,
+                y: 0,
+                duration: 0.8,
+                ease: 'power4.out',
+                stagger: 0.12,
+                scrollTrigger: { trigger: '#exp-test-title', start: 'top 85%' }
+            });
+
+            /* ── Cards stagger with blur ── */
+            gsap.fromTo(
+                ['#exp-card-1', '#exp-card-2', '#exp-card-3'],
+                { opacity: 0, y: 48, filter: 'blur(8px)' },
+                {
+                    opacity: 1,
+                    y: 0,
+                    filter: 'blur(0px)',
+                    duration: 0.9,
+                    ease: 'power4.out',
+                    stagger: 0.15,
+                    scrollTrigger: { trigger: '.exp-cards', start: 'top 80%' }
+                }
+            );
+
+            /* ── Card mouse-follow highlight ── */
+            document.querySelectorAll('.exp-card').forEach(card => {
+                card.addEventListener('mousemove', e => {
+                    const rect = card.getBoundingClientRect();
+                    card.style.setProperty('--mx', (e.clientX - rect.left) + 'px');
+                    card.style.setProperty('--my', (e.clientY - rect.top) + 'px');
+                });
+            });
+
+            /* ── Marquee velocity on scroll (speed up/slow down) ── */
+            const track = document.getElementById('exp-marquee-track');
+            let marqueeSpeed = 35;
+            ScrollTrigger.create({
+                trigger: expSection,
+                start: 'top bottom',
+                end: 'bottom top',
+                onUpdate: self => {
+                    const vel = Math.abs(self.getVelocity());
+                    const speedUp = Math.max(4, 35 - vel * 0.018);
+                    track.style.animationDuration = speedUp + 's';
                 }
             });
 
