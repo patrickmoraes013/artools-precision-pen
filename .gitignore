@@ -140,4 +140,4 @@ vite.config.ts.timestamp-*
 
 # Assets pesados - não subir no GitHub
 assets/video_frames/
-assets/raw_files/*.mp4
+assets/videos/*.mp4
